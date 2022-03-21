@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Notepad App</h3>
+    </div>
+  </div>
+  <div class="row notelist">
+    <div class="col-xs-4 list-of-note">
+      <div class="list-group">
+        <div class="list-group-item note"
+          (click)="selectNote(noteData)" *ngFor="let noteData of note; let i = index"
+        >
+        <div *ngIf="note?.length">
+          <p class="noteTitle" [ngClass]="{'highlight': (i === note?.length - 1) && createdNewNote}" (select)="selectNote(noteData)">{{noteData?.title}}</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div *ngIf="noteFormFlag">
+        <form [formGroup]="noteForm" #myForm="ngForm">
+          <div class="form-group">
+            <label>Title:
+            <input class="note-title form-control" name="title"  formControlName="noteTitle" required></label>
+            <div class="form-error" *ngIf="(noteForm?.controls?.noteTitle?.touched && !noteForm?.controls?.noteTitle?.valid && noteForm?.controls?.noteTitle?.errors?.required) || ( noteForm?.controls?.noteTitle?.errors?.required && saveClicked)">
+                Field is required
+            </div>                 
+          </div>
+          <div class="form-group">
+            <label>Note:
+            <textarea class="note-body form-control" name="body" formControlName="formBody"></textarea></label>
+          </div>
+          <div class="form-group">
+            <label>favorite:
+            <input type="checkbox" class="note-favorite" name="favorite" formControlName="formFavorite"></label>
+          </div>
+          <div class="form-group">
+            <label>Color:
+            <input type="color" class="note-color" name="color" formControlName="formColor"></label>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success note-save" (click)="saveNote({'title': noteForm?.controls?.noteTitle?.value, 'body': noteForm?.controls?.formBody?.value, 'color': noteForm?.controls?.formColor?.value, 'favorite': noteForm?.controls?.formFavorite?.value})">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        Please select note or <a href="#" class="note-new" (click)="newNote()">click here to create new one</a>
+      </div>
+
+    </div>
+  </div>
+</div>
