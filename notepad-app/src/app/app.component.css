@@ -1,0 +1,21 @@
+p.noteTitle::selection{
+    background-color:yellow;
+    
+}
+
+.list-of-note{
+   padding-right: 30px;
+}
+
+.highlight {
+    animation: highlight 3s;
+}
+
+@keyframes highlight {
+    0% {
+        background: red
+    }
+    100% {
+        background: none;
+    }
+}
